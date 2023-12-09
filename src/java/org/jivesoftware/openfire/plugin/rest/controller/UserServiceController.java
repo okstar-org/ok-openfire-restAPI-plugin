@@ -16,6 +16,7 @@
 
 package org.jivesoftware.openfire.plugin.rest.controller;
 
+import org.jivesoftware.openfire.PresenceManager;
 import org.jivesoftware.openfire.SessionManager;
 import org.jivesoftware.openfire.SharedGroupException;
 import org.jivesoftware.openfire.XMPPServer;
@@ -69,6 +70,8 @@ public class UserServiceController {
     /** The lock out manager. */
     private final LockOutManager lockOutManager;
 
+    private final PresenceManager presenceManager;
+
     /**
      * Gets the single instance of UserServiceController.
      *
@@ -98,6 +101,7 @@ public class UserServiceController {
         userManager = server.getUserManager();
         rosterManager = server.getRosterManager();
         lockOutManager = server.getLockOutManager();
+        presenceManager = server.getPresenceManager();
     }
 
     public static void log(String logMessage) {
@@ -212,8 +216,23 @@ public class UserServiceController {
             return getUserEntitiesByProperty(propertyKey, propertyValue);
         }
         log("Get all users");
+
+
+        Collection<User> users = userManager.getUsers();
         UserEntities userEntities = new UserEntities();
-        userEntities.setUsers(UserUtils.convertUsersToUserEntities(userManager.getUsers(), userSearch));
+        List<UserEntity> entities = UserUtils.convertUsersToUserEntities(users, userSearch);
+        for (User user: users) {
+            boolean available = presenceManager.isAvailable(user);
+            if(available){
+                entities.stream()
+                        .filter(e->e.getUsername().equals(user.getUsername()))
+                        .findFirst()
+                        .ifPresent(userEntity -> {
+                            userEntity.setOnline(true);
+                        });
+            }
+        }
+        userEntities.setUsers(entities);
         return userEntities;
     }
 

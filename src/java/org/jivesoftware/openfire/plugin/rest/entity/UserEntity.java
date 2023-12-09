@@ -47,6 +47,8 @@ public class UserEntity {
     /** The properties. */
     private List<UserProperty> properties;
 
+    private boolean online;
+
     /**
      * Instantiates a new user entity.
      */
@@ -68,6 +70,14 @@ public class UserEntity {
         this.username = username;
         this.name = name;
         this.email = email;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
+    public boolean isOnline() {
+        return online;
     }
 
     /**
