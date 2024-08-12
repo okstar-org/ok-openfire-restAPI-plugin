@@ -134,6 +134,47 @@
     </profiles>
 
     <repositories>
+        <!-- 配置阿里云仓库 -->
+        <repository>
+            <id>AliYun Public Repository</id>
+            <url>https://maven.aliyun.com/repository/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>Liferay Public Repository</id>
+            <url>https://repository.liferay.com/nexus/content/repositories/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>Typesafe Repository</id>
+            <url>https://repo.typesafe.com/typesafe/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>repo1</id>
+            <url>https://repo1.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <!-- Where we obtain dependencies. -->
         <repository>
             <id>igniterealtime</id>
@@ -143,6 +184,16 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>repo1</id>
+            <url>https://repo1.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
         <!-- Typically used to retrieve Maven plugins used by this project from. This
              apparently is also used to obtain the dependencies _used by_ plugins
         (eg: openfire-plugin-assembly-descriptor) -->
